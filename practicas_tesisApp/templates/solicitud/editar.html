@@ -1,0 +1,38 @@
+{% extends 'plantilla.html' %}{% load crispy_forms_tags %} {% block titulo %}Editar Solicitud Practicas{% endblock titulo %} {% block contenido %}
+<div class="row">
+  <div class="col-md-10 offset-md-1">
+    <div class="card px-5 pt-5 pb-2 shadow-lg fondo-card">
+      <div class="card card-outline card-info mb-3">
+        <div class="card-header rounded-3 shadow-lg fondo-cabecera-card">
+          <h1 class="card-title">Editar Solicitud Practicas</h1>
+        </div>
+      </div>
+      <div class="card-body">
+        <hr>
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %} 
+          <div class="form-row"> 
+            {% for field in form %}
+            <div class="form-group col-md-12 mb-0">
+              {{field | as_crispy_field }}
+            </div>
+            {% endfor %}
+          </div>
+          <hr>
+          <div class="d-flex justify-content-end">
+            <a href="{% url 'listarSolicitud' %}" class="btn btn-secondary"><i class="fa fa-undo"></i> Cancelar</a>
+            &nbsp;
+            {% if form.estado.value == 'Pendiente' %}
+            <button type="submit" class="btn btn-info"><i class="fa fa-check"></i> Guardar</button>
+            {% endif %}
+            {% if form.estado.value == 'Observada' %}
+            <button type="submit" class="btn btn-info"><i class="fa fa-check"></i> Guardar</button>
+            {% endif %}
+          </div>
+        </form>
+        {{mensaje}}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock contenido %}

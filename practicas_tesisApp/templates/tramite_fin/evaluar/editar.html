@@ -1,0 +1,46 @@
+{% extends 'plantilla.html' %}{% load crispy_forms_tags %} {% block titulo %}Editar Tramite{% endblock titulo %} {% block contenido %}
+<div class="row">
+  <div class="col-md-10 offset-md-1">
+    <div class="card px-5 pt-5 pb-2 shadow-lg fondo-card">
+      <div class="card card-outline card-info mb-3">
+        <div class="card-header rounded-3 shadow-lg fondo-cabecera-card">
+          <h1 class="card-title">Editar Tramite</h1>
+        </div>
+      </div>
+      <div class="card-body">
+        <hr>
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %} 
+          <div class="form-row"> 
+            {% for field in form %}
+            <div class="form-group col-md-4 mb-0">
+              {{field | as_crispy_field }}
+            </div>
+            {% endfor %}
+          </div>
+          <hr>
+          <div class="d-flex justify-content-md-end row">
+            <a href="{{ tramite.voucher.url }}" class="btn btn-success" target="_black"><i class="fa fa-file mr-1"></i>Voucher</a>
+              &nbsp;
+            <a href="{{ tramite.certificado_practicas.url }}" class="btn btn-success" target="_black"><i class="fa fa-file mr-1"></i>Certificado</a>
+              &nbsp;
+            <a href="{{ tramite.informe_final_practicas.url }}" class="btn btn-success" target="_black"><i class="fa fa-file mr-1"></i>Informe Final</a>
+              &nbsp;
+            <a href="{{ tramite.fut_fin_practicas.url }}" class="btn btn-success" target="_black"><i class="fa fa-file mr-1"></i>FUT</a>
+              &nbsp;
+            <a href="{% url 'listarTramiteFinPracticaEvaluar' %}" class="btn btn-secondary"><i class="fa fa-undo"></i> Cancelar</a>
+            &nbsp;
+            {% if tramite.estado == 'Pendiente' %}
+            <button type="submit" class="btn btn-info"><i class="fa fa-check"></i> Guardar</button>
+            {% endif %}
+            {% if tramite.estado == 'Observada' %}
+            <button type="submit" class="btn btn-info"><i class="fa fa-check"></i> Guardar</button>
+            {% endif %}
+          </div>
+        </form>
+        {{mensaje}}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock contenido %}

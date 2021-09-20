@@ -1,0 +1,54 @@
+{% extends 'plantilla.html' %} {% block titulo %}Listado de Inscripcion Tesis{% endblock titulo %} {% block contenido %}
+<div class="container-fluid px-5 pt-5 pb-2 shadow-lg card fondo-card">
+  <div class="card card-outline card-info mb-3">
+    <div class="card-header rounded-3 shadow-lg fondo-cabecera-card">
+      <h1 class="card-title">Listado de Inscripcion Tesis</h1>
+    </div>
+  </div>
+  <div class="row">
+    {% comment %} <div class="col-md-12 mb-2">
+        <a href="{% url 'agregarSolicitud' %}" class="btn btn-sm btn-info btn-add">
+            <i class="fa fa-plus mr-2"></i> Nuevo
+        </a> 
+    </div> {% endcomment %}
+    <div class="col-md-6 d-flex justify-content-start mb-2">
+        {% include 'paginator.html' %}
+    </div>
+    <div class="col-md-6 mb-2">
+        {% include 'buscador.html' %}
+    </div>
+    <div class=" table-responsive">
+      <table class="table">
+        <thead class="text-nowrap">
+          <tr>
+            <th>ID</th>
+            <th>ALUMNO</th>
+            <th>ESTADO</th>
+            <th><center>OPCIONES</center></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if entity %} {% for tramite in entity %}
+          <tr class="{% if tramite.estado == 'Aprobado' %}aprobado{% endif %}{% if tramite.estado == 'Desaprobado' %}desaprobado{% endif %}">
+            <td>{{ tramite.id }}</td>
+            <td>{{ tramite.solicitud.alumno }}</td>
+            <td>{{ tramite.estado }}</td>
+            <td style="text-align: center">
+                <a href="{% url 'editarInscripcionTesisEvaluar' tramite.id %}" class="btn btn-info btn-sm">
+                <i class="fa fa-edit mr-1"></i>Evaluar
+                </a>
+            </td> 
+          </tr>
+          {% endfor %} {% else %}
+          <tr style="text-align: center">
+            <td colspan="4">
+              <p>No hay registros</p>
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock contenido %} 

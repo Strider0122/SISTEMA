@@ -1,0 +1,132 @@
+{% extends 'plantilla.html' %} {% block titulo %}Listado de Sustentacion Tesis{% endblock titulo %} {% block contenido %}
+<div class="container-fluid px-5 pt-5 pb-2 shadow-lg card fondo-card">
+  <div class="card card-outline card-info mb-3">
+    <div class="card-header rounded-3 shadow-lg fondo-cabecera-card">
+      <h1 class="card-title">Listado de Sustentacion Tesis</h1>
+    </div>
+  </div>
+  <div class="row">
+    {% comment %} <div class="col-md-12 mb-2">
+        <a href="{% url 'agregarSolicitud' %}" class="btn btn-sm btn-info btn-add">
+            <i class="fa fa-plus mr-2"></i> Nuevo
+        </a> 
+    </div> {% endcomment %}
+    <div class="col-md-6 d-flex justify-content-start mb-2">
+        {% include 'paginator.html' %}
+    </div>
+    <div class="col-md-6 mb-2">
+        {% include 'buscador.html' %}
+    </div>
+    <div class=" table-responsive ">
+      <table class="table">
+        <thead class="text-nowrap">
+          <tr>
+            <th>ID</th>
+            <th>JURADOS</th>
+            <th>RESUMEN TESIS</th>
+            <th>FUT FINAL TESIS</th>
+            <th>VOUCHER TESIS</th>
+            <th>LINK REUNION</th>
+            <th>FECHA</th>
+            <th>HORA</th>
+            <th>NOTA</th>
+            <th>ESTADO</th>
+            <th><center>OPCIONES</center></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if entity %} {% for tramite in entity %}
+          <tr class="
+          {% if tramite.nota > 13%}
+            aprobado
+          {% endif %}
+          {% if tramite.nota < 14%}
+            desaprobado
+          {% endif %}
+          {% if tramite.nota == None%}
+            asignado
+          {% endif %}
+          ">
+            <td>{{ tramite.id }}</td>
+            <td>
+            {% for jurado in tramite.jurados.all %}
+            -{{jurado}}
+            <br>
+            <br>
+            {% endfor %}
+            </td>
+            <td >
+            {% if tramite.resumen_tesis %}
+              <a href="{{ tramite.resumen_tesis.url }}" class="btn btn-success btn-sm" target="_black"><i class="fa fa-file mr-1"></i>Archivo</a>
+            {% else %}
+            Sin resumen de tesis
+            {% endif %}
+            </td>
+            <td >
+            {% if tramite.fut_sustentacion_tesis %}
+              <a href="{{ tramite.fut_sustentacion_tesis.url }}" class="btn btn-success btn-sm" target="_black"><i class="fa fa-file mr-1"></i>Archivo</a>
+            {% else %}
+            Sin fut
+            {% endif %}
+            </td>
+            <td >
+            {% if tramite.voucher %}
+              <a href="{{ tramite.voucher.url }}" class="btn btn-success btn-sm" target="_black"><i class="fa fa-file mr-1"></i>Archivo</a>
+            {% else %}
+            Sin voucher
+            {% endif %}
+            </td>
+            <td>
+            {% if tramite.enlace %}
+            <a href="{{ tramite.enlace }}" class="btn btn-primary btn-sm" target="_black"><i class="fa fa-link"></i> Link</a></td>
+            {% else %}
+            Sin enlace Asignado
+            {% endif %}
+            <td>
+            {% if tramite.fecha_sustentacion %}
+            {{ tramite.fecha_sustentacion | date:'d / m / Y' }}
+            {% if tramite.dias_restantes > 0 %}
+            <p class="text-danger">
+            <strong>
+            Faltan {{tramite.dias_restantes}} dias
+            </strong>
+            </p>
+            {% endif %}
+            {% else %}
+            Fecha no asignada
+            {% endif %}
+            </td>
+            <td>
+            {% if tramite.hora %}
+            {{ tramite.hora }}
+            {% else %}
+            Sin hora asignada
+            {% endif %}
+            </td>
+            <td>
+            {% if tramite.nota %}
+            {{ tramite.nota }}
+            {% else %}
+            Calificacion Sin terminar
+            {% endif %}
+            </td>
+            <td>{{ tramite.estado}}</td>
+            <td style="text-align: center">
+                <a href="{% url 'editarSustentacionTesis' tramite.id %}" class="btn btn-info btn-sm">
+                <i class="fa fa-edit mr-1"></i>Editar Documentos
+                </a>
+            </td> 
+          </tr>
+          {% endfor %} {% else %}
+          <tr style="text-align: center">
+            <td colspan="11">
+              <p>No hay registros</p>
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock contenido %} 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% load static %}
+	 <meta charset="utf-8"/>
+     <title>UNT Login</title>
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>      
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body class="container-fluid"> 
+    {% load crispy_forms_tags %}
+                      
+      <div class="row">
+        <div class="col-md-4">
+            <div class="row px-3">
+                <div class="col-md-12 text-center py-5">
+                    <a href="https://aulavirtual2.unitru.edu.pe/">
+                        <img src="https://aulavirtual2.unitru.edu.pe/pluginfile.php/1/theme_space/customloginlogo/1626992590/logo_login_bg.png" class="img-fluid w-50" alt="">
+                    </a>
+                </div>
+                <div class="col-md-12 ">
+                    <form method="POST" action="">                          
+                        {% csrf_token %}
+
+                        {{form | crispy}}
+
+                        <div class="form-actions mt-3 w-50 mx-auto">
+                            <button class="btn btn-primary col-12">
+                                Ingresar 
+                            </button>
+                        </div>
+                    </form> 
+                    <div class="form-actions mt-3 w-50 mx-auto">
+                        <a class="btn btn-secondary col-12" href="{% url 'inicio' %}">Regresar</a>
+                    </div>
+                    {% if messages %}
+                        <div class="container mt-5 ">
+                                    {% for message in messages %}
+                                        <div class="border border-info alert alert-{{message.tags}}">
+                                            {{message}}
+                                        </div>
+                                    {% endfor %}
+                        </div>
+                    {% endif %}   
+                </div>
+            </div>    
+        </div>
+        <div class="col-md-8 d-none d-md-block">
+            <img src=" {% static 'UNT_LOGIN.png' %}" class="img-fluid" style="height:100vh;width:100%" alt="">
+        </div>
+      </div>
+        
+       
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+</html>

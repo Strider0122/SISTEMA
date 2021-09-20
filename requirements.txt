@@ -1,0 +1,4 @@
+pillow                          #LIBRERIA de imágenes de Python
+django-crispy-forms             #LIBRERIA DE FORMULARIOS
+django-seed                     #GENERAR DATOS
+# PARA INSTALAR ESTOS REQUERIMIENTOS COMANDO: pip install -r requirements.txt

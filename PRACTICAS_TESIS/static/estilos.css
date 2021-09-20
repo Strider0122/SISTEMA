@@ -1,0 +1,34 @@
+.aprobado{
+    background: #daebf7;
+}
+.desaprobado{
+    background: #E2B6B3;
+}
+.asignado{
+    background: #f7e99cad;
+}
+.aprobado:hover{
+    background: #cbe6fa;
+}
+.desaprobado:hover{
+    background: #e0a8a4;
+}
+.asignado:hover{
+    background: #eede83ad;
+}
+.fondo-card{
+    background: #aaccdb;
+    color: #272631;
+}
+.fondo-cabecera-card{
+    color: #ffffff;
+    background: #2a3f54;
+}
+.footer{
+    background: #182b3f;
+    color: #aaccdb;
+}
+.fondo-bienvenido{
+    background:#2d3634;
+
+}

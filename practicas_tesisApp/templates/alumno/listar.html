@@ -1,0 +1,78 @@
+{% extends 'plantilla.html' %} {% block titulo %}Listado de Alumnos{% endblock titulo %} {% block contenido %}
+<div class="container-fluid px-5 pt-5 pb-2 shadow-lg card fondo-card">
+  <div class="card card-outline card-info mb-3">
+    <div class="card-header rounded-3 shadow-lg fondo-cabecera-card">
+      <h1 class="card-title">Listado de Alumnos</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 mb-2">
+        <a href="{% url 'agregarAlumno' %}" class="btn btn-sm btn-info btn-add">
+            <i class="fa fa-plus mr-2"></i> Nuevo
+        </a> 
+    </div>
+    <div class="col-md-6 d-flex justify-content-start mb-2">
+        {% include 'paginator.html' %}
+    </div>
+    <div class="col-md-6 mb-2">
+        {% include 'buscador.html' %}
+    </div>
+    <div class=" table-responsive">
+      <table class="table">
+        <thead class="text-nowrap">
+          <tr>
+            <th>ID</th>
+            <th>ALUMNO</th>
+            <th>DNI</th>
+            <th>SEXO</th>
+            <th>DIRECCION</th>
+            <th>ESCUELA</th>
+            <th>ESTADO</th>
+            <th><center>OPCIONES</center></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if entity %} {% for alumno in entity %}
+          <tr>
+            <td>{{ alumno.id }}</td>
+            <td>{{ alumno.nombre}} {{ alumno.apellido_paterno}} {{ alumno.apellido_materno}}</td>
+            <td>{{ alumno.dni }}</td>
+            <td>{{ alumno.sexo }}</td>
+            <td>{{ alumno.direccion }}</td>
+            <td>{{ alumno.escuela.escuela }}</td>
+            <td>{{ alumno.estado }}</td>
+            {% include 'opciones.html' with id=alumno.id  descripcion="Alumno" enlace="editarAlumno" %}
+          </tr>
+          {% endfor %} {% else %}
+          <tr style="text-align: center">
+            <td colspan="9">
+              <p>No hay registros</p>
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock contenido %} {% block js %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function eliminar(id, descripcion) {
+    Swal.fire({
+      title: "¿Realmente desea eliminar Registro?",
+      text: "Registro :" + id + " - " + descripcion,
+      icon: "question",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Si",
+      reverseButton: true,
+      confirmButtonColor: "#dc3545",
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        window.location.href = "/eliminarAlumno/" + id + "/";
+      }
+    });
+  }
+</script>
+{% endblock %}
