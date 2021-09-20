@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'PRACTICAS_TESIS.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'PRACTICAS_TESIS',
-        'USER': 'postgres',
-        'PASSWORD': 'predicador123',
-        'HOST': '127.0.0.1',
-        'DATABASE_PORT': '5432',
+        'NAME': 'django_base_db',
+        'USER': 'djangouser',
+        'PASSWORD': 'password,
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
